@@ -104,11 +104,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.wpm = elapsedMinutes > 0 ? Math.floor(wordsTyped / elapsedMinutes) : 0;
     let originalTextArr = this.originalText.split('');
     let typedTextArr = this.typedText.split('');
-    console.log(originalTextArr, typedTextArr);
 
     if (originalTextArr.length === typedTextArr.length) {
       const newText = this.checkInput();
-      console.log(newText);
       this.getRandomText();
     }
   }
