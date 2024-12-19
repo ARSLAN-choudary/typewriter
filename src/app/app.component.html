@@ -1,69 +1,118 @@
-<div
-  class="min-h-screen flex justify-around bg-gradient-to-br from-gray-100 to-blue-200 items-center p-4"
->
-  <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg p-6 space-y-6">
-    <!-- Title -->
-    <h1 class="text-2xl font-bold text-gray-800 text-center">
-      Typing Speed Test
-    </h1>
-
-    <!-- Random Text -->
+<div class="md:p-5 w-full p-1 flex md:flex-row flex-col-reverse md:gap-2 gap-3">
+  <div class="flex flex-col md:w-[80%] w-full gap-1 mb-3">
+    <!-- Input Section -->
     <div
-      class="bg-blue-100 border border-blue-300 rounded-md p-4 text-lg text-gray-700 leading-relaxed"
+      class="flex flex-col gap-3 justify-between bg-white shadow-md rounded-lg px-2 pb-2 md:px-3 md:pb-3 md: w-full"
     >
-      <p><strong>Type this text:</strong></p>
-      <p id="random-text" class="mt-2">{{ randomText }}</p>
+      <div class="w-full md:h-full h-[89px]">
+        <p class="md:text-[20px] text-[14px]">{{ originalText }}</p>
+      </div>
+      <textarea
+        [(ngModel)]="typedText"
+        (input)="onType()"
+        class="w-full border border-gray-300 rounded-md transition-all p-3 text-gray-800 outline-none resize-y min-h-[50px] h-full py-4 md:leading-[2rem] leading-5 md:text-[18px] text-[13px]"
+        placeholder="Enter text..."
+      ></textarea>
     </div>
 
-    <!-- Input Area -->
-    <textarea
-      id="input-area"
-      class="w-full h-32 bg-gray-100 rounded-md p-4 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:outline-none text-lg"
-      placeholder="Start typing here..."
-      [(ngModel)]="typedText"
-      (input)="onInput()"
-    ></textarea>
-
-    <!-- Typed Words Display -->
-    <div
-      class="w-full bg-gray-50 rounded-md p-4 border border-gray-200 text-lg leading-relaxed flex flex-wrap gap-2"
-    >
-      <span
-        *ngFor="let word of typedWords"
-        [ngClass]="
-          word.isCorrect
-            ? 'text-green-600 font-medium'
-            : 'text-red-500 font-medium'
-        "
-        class="inline-block"
-      >
-        {{ word.word }}
-      </span>
+    <!-- Statistics Section -->
+    <div>
+      <ul class="keys">
+        <li class="key-btn" id="grey" (click)="handleKeyPress('💀')">💀</li>
+        <li class="key-btn" (click)="handleKeyPress('1')">1</li>
+        <li class="key-btn" (click)="handleKeyPress('2')">2</li>
+        <li class="key-btn" (click)="handleKeyPress('3')">3</li>
+        <li class="key-btn" (click)="handleKeyPress('4')">4</li>
+        <li class="key-btn" (click)="handleKeyPress('5')">5</li>
+        <li class="key-btn" (click)="handleKeyPress('6')">6</li>
+        <li class="key-btn" (click)="handleKeyPress('7')">7</li>
+        <li class="key-btn" (click)="handleKeyPress('8')">8</li>
+        <li class="key-btn" (click)="handleKeyPress('0')">0</li>
+        <li class="key-btn" (click)="handleKeyPress('_')">_</li>
+        <li class="key-btn" (click)="handleKeyPress('=')">=</li>
+        <li class="key-btn" id="yellow" (click)="handleKeyPress('🎨')">🎨</li>
+      </ul>
+      <ul class="keys">
+        <li class="key-btn" id="red">🌵</li>
+        <li class="key-btn" (click)="handleKeyPress('Q')">Q</li>
+        <li class="key-btn" (click)="handleKeyPress('W')">W</li>
+        <li class="key-btn" (click)="handleKeyPress('E')">E</li>
+        <li class="key-btn" (click)="handleKeyPress('R')">R</li>
+        <li class="key-btn" (click)="handleKeyPress('T')">T</li>
+        <li class="key-btn" (click)="handleKeyPress('Y')">Y</li>
+        <li class="key-btn" (click)="handleKeyPress('U')">U</li>
+        <li class="key-btn" (click)="handleKeyPress('I')">I</li>
+        <li class="key-btn" (click)="handleKeyPress('O')">O</li>
+        <li class="key-btn" (click)="handleKeyPress('P')">P</li>
+        <li class="key-btn" (click)="handleKeyPress('[')">[</li>
+        <li class="key-btn" (click)="handleKeyPress(']')">]</li>
+        <li class="key-btn" (click)="handleKeyPress('\\')">\</li>
+      </ul>
+      <ul class="keys">
+        <li class="key-btn" id="blue" (click)="handleKeyPress('')">🧢</li>
+        <li class="key-btn" (click)="handleKeyPress('A')">A</li>
+        <li class="key-btn" (click)="handleKeyPress('S')">S</li>
+        <li class="key-btn" (click)="handleKeyPress('D')">D</li>
+        <li class="key-btn" (click)="handleKeyPress('F')">F</li>
+        <li class="key-btn" (click)="handleKeyPress('G')">G</li>
+        <li class="key-btn" (click)="handleKeyPress('H')">H</li>
+        <li class="key-btn" (click)="handleKeyPress('J')">J</li>
+        <li class="key-btn" (click)="handleKeyPress('K')">K</li>
+        <li class="key-btn" (click)="handleKeyPress('L')">L</li>
+        <li class="key-btn" (click)="handleKeyPress(';')">;</li>
+        <li class="key-btn" (click)="handleKeyPress('')">""</li>
+        <li class="key-btn" id="green" (click)="handleKeyPress('')">🔫</li>
+      </ul>
+      <ul class="keys">
+        <li class="key-btn" id="rebeca">🔥</li>
+        <li class="key-btn" (click)="handleKeyPress('Z')">Z</li>
+        <li class="key-btn" (click)="handleKeyPress('X')">X</li>
+        <li class="key-btn" (click)="handleKeyPress('C')">C</li>
+        <li class="key-btn" (click)="handleKeyPress('V')">V</li>
+        <li class="key-btn" (click)="handleKeyPress('B')">B</li>
+        <li class="key-btn" (click)="handleKeyPress('N')">N</li>
+        <li class="key-btn" (click)="handleKeyPress('M')">M</li>
+        <li class="key-btn" (click)="handleKeyPress(',')">,</li>
+        <li class="key-btn" (click)="handleKeyPress('.')">.</li>
+        <li class="key-btn" (click)="handleKeyPress('?')">?</li>
+        <li class="key-btn" id="up" (click)="handleKeyPress('SHIFT')">🧬</li>
+      </ul>
+      <ul class="keys">
+        <li class="key-btn" id="one" (click)="handleKeyPress('ctrl')">ctrl</li>
+        <li class="key-btn" id="one" (click)="handleKeyPress('alt')">alt</li>
+        <li class="key-btn" id="one" (click)="handleKeyPress('cmd')">cmd</li>
+        <li class="key-btn" id="two" (click)="handleKeyPress(' ')"></li>
+        <li class="key-btn" id="one" (click)="handleKeyPress('cmd')">cmd</li>
+        <li class="key-btn" id="one" (click)="handleKeyPress('alt')">alt</li>
+      </ul>
     </div>
   </div>
-  <!-- Stats Section -->
-  <div class="bg-blue-50 rounded-md p-6 border border-blue-300">
-    <h3 class="text-xl font-semibold text-blue-700 mb-4">Typing Stats</h3>
-    <ul class="space-y-2 text-gray-700">
-      <li class="flex justify-between">
-        <span>Time Left:</span>
-        <span class="font-bold">{{ timeLeft }} seconds</span>
+
+  <div
+    class="bg-zinc-300 shadow-md rounded-lg p-4 md:p-6 flex flex-col text-gray-700 md:w-[30%] w-full mx-auto"
+  >
+    <!-- Heading -->
+    <p class="text-lg md:text-xl font-semibold md:mb-2 text-center mb-1">
+      Statistics
+    </p>
+    <hr />
+    <!-- List -->
+    <ul class="space-y-3 text-sm md:text-base w-full">
+      <li class="flex justify-between w-full">
+        <span class="font-bold">Correct Words</span>
+        <span class="text-green-600">{{ correctWords }}</span>
       </li>
-      <li class="flex justify-between">
-        <span>Correct Words:</span>
-        <span class="font-bold">{{ correctWords }}</span>
+      <li class="flex justify-between w-full">
+        <span class="font-bold">Incorrect Words:</span>
+        <span class="text-red-600">{{ incorrectLetters }}</span>
       </li>
-      <li class="flex justify-between">
-        <span>Incorrect Words:</span>
-        <span class="font-bold text-red-500">{{ incorrectWords }}</span>
+      <li class="flex justify-between w-full">
+        <span class="font-bold">WPM:</span>
+        <span>{{ wpm }}</span>
       </li>
-      <li class="flex justify-between">
-        <span>Words Per Minute (WPM):</span>
-        <span class="font-bold">{{ wpm }}</span>
-      </li>
-      <li class="flex justify-between">
-        <span>Accuracy:</span>
-        <span class="font-bold">{{ accuracy }}%</span>
+      <li class="flex justify-between w-full">
+        <span class="font-bold">Accuracy:</span>
+        <span class="text-blue-600">{{ accuracy }}%</span>
       </li>
     </ul>
   </div>
