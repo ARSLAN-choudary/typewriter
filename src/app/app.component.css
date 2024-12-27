@@ -94,7 +94,17 @@ body {
 
 
  
-  
+  @media (max-width: 768px) {
+    .lg-hide{
+      display: none;
+    }
+   
+  }
+  @media (min-width: 768px) {
+    .mobile-btn{
+      display: none;
+    }
+  }
 
 
 

@@ -25,10 +25,11 @@ export class AppComponent implements OnInit, OnDestroy {
   correctWords: number = 0; // Correctly typed words
   incorrectLetters: number = 0; // Incorrectly typed letters
   wpm: number = 0; // Words per minute
-  accuracy: number = 100; // Accuracy percentage
+  accuracy: number = 0; // Accuracy percentage
 
   currentKey: any = ''; // Current pressed key
   lastKey: string = ''; // Last key pressed
+  isCapsLockOn: boolean = false;
   private eventListener: (() => void) | undefined; // Keydown event listener
 
   constructor(private renderer: Renderer2) { }
@@ -51,13 +52,73 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onKeyPress(event: KeyboardEvent): void {
     const regex = /^[a-zA-Z0-9\s]$/; // Allow only alphanumeric and space
+    
+  }
 
-    if (regex.test(event.key)) {
-      this.currentKey = event.key;
-      setTimeout(() => (this.currentKey = ''), 200);
-      this.onType();
+  handleKeyPress(key: string): void {
+    this.currentKey = key;
+    setTimeout(() => (this.currentKey = ''), 200);
+
+    if (this.isCapsLockOn) {
+      key = key.toUpperCase();
+    }
+
+    if (key === 'del') {
+      this.typedText = this.typedText.slice(0, -1);
+    } else if (key === ' ') {
+      this.typedText += ' ';
+    } else {
+      this.typedText += key;
+    }
+
+    this.onType();
+  }
+
+  handleSpecialKeyPress(key: string): void {
+    switch (key) {
+      case 'CapsLock':
+        this.toggleCapsLock();
+        break;
+      case 'Enter':
+        this.handleEnterKey();
+        break;
+      case 'Shift':
+        this.handleShiftKey();
+        break;
+      case 'Control':
+        this.handleControlKey();
+        break;
+      case 'Tab':
+        this.handleTabKey();
+        break;
+      default:
+        break;
     }
   }
+
+  toggleCapsLock(): void {
+    this.isCapsLockOn = !this.isCapsLockOn;
+  }
+
+  handleEnterKey(): void {
+    this.typedText += '\n';
+    this.onType();
+  }
+
+  handleShiftKey(): void {
+    // Handle Shift key functionality if needed
+  }
+
+  handleControlKey(): void {
+    // Handle Control key functionality if needed
+  }
+
+  handleTabKey(): void {
+    // Prevent default tab behavior
+    this.typedText += '\t';
+    this.onType();
+  }
+
   onType(): void {
     if (!this.timerStarted) {
       this.startTimer(); // Start timer on first keypress
@@ -96,66 +157,37 @@ export class AppComponent implements OnInit, OnDestroy {
     // Accuracy Calculation: (Correct characters / Total typed characters) * 100
     this.accuracy = typed.length
       ? Math.floor((correctChars / typed.length) * 100)
-      : 100;
+      : 0;
 
     // Words per minute Calculation: Words typed / (Elapsed time in minutes)
     const wordsTyped = this.typedText.trim().split(/\s+/).length;
     const elapsedMinutes = this.timer / 60;
     this.wpm = elapsedMinutes > 0 ? Math.floor(wordsTyped / elapsedMinutes) : 0;
-    let originalTextArr = this.originalText.split('');
-    let typedTextArr = this.typedText.split('');
-
-    if (originalTextArr.length === typedTextArr.length) {
-      const newText = this.checkInput();
-      this.getRandomText();
-    }
-  }
-
-  checkInput() {
-    if (this.typedText === this.originalText) {
-      this.originalText = this.getRandomText();
-      this.typedText = ''; // Input auto clear
-    }
-  }
-
-  getRandomText() {
-    const randomIndex = Math.floor(Math.random() * this.textOptions.length);
-    return this.textOptions[randomIndex];
   }
 
   startTimer(): void {
     this.timerStarted = true;
-    this.timer = 0; // Reset timer
     this.interval = setInterval(() => {
       this.timer++;
+      this.calculateWPM();
     }, 1000);
   }
 
-  stopTimer(): void {
-    clearInterval(this.interval);
-    this.timerStarted = false;
+  calculateWPM(): void {
+    const wordsTyped = this.typedText.trim().split(/\s+/).length;
+    const elapsedMinutes = this.timer / 60;
+    this.wpm = elapsedMinutes > 0 ? Math.round(wordsTyped / elapsedMinutes) : 0;
   }
 
-  resetStats(): void {
-    this.stopTimer();
-    this.typedText = '';
-    this.timer = 0;
-    this.correctWords = 0;
-    this.incorrectLetters = 0;
-    this.wpm = 0;
-    this.accuracy = 100;
+  backspacefunc(): void {
+    this.typedText = this.typedText.slice(0, -1);
   }
-
-  handleKeyPress(key: any): void {
-    this.currentKey = key;
-    setTimeout(() => (this.currentKey = ''), 200);
-
-    if (key === ' ') {
-      this.typedText += ' ';
-    } else {
-      this.typedText += key;
-    }
-
-    this.onType();
+  othermodeon=false
+  othermode(){
+this.othermodeon=!this.othermodeon
+  }
+  symbolsmodeon=false
+  symbolsmode(){
+this.symbolsmodeon=!this.symbolsmodeon
   }
 }

@@ -1,24 +1,20 @@
 <div class="md:p-5 w-full p-1 flex md:flex-row flex-col-reverse md:gap-2 gap-3">
   <div class="flex flex-col md:w-[80%] w-full gap-1 mb-3">
     <!-- Input Section -->
-    <div
-      class="flex flex-col gap-3 justify-between bg-white shadow-md rounded-lg px-2 pb-2 md:px-3 md:pb-3 md: w-full"
-    >
+    <div class="flex flex-col gap-3 justify-between bg-white shadow-md rounded-lg px-2 pb-2 md:px-3 md:pb-3 md: w-full">
       <div class="w-full md:h-full h-[89px]">
         <p class="md:text-[20px] text-[14px]">{{ originalText }}</p>
       </div>
-      <textarea
-        [(ngModel)]="typedText"
-        (input)="onType()"
+      <textarea [(ngModel)]="typedText" (input)="onType()"
         class="w-full border border-gray-300 rounded-md transition-all p-3 text-gray-800 outline-none resize-y min-h-[50px] h-full py-4 md:leading-[2rem] leading-5 md:text-[18px] text-[13px]"
-        placeholder="Enter text..."
-      ></textarea>
+        placeholder="Enter text..."></textarea>
     </div>
 
     <!-- Statistics Section -->
     <div>
+      @if (!symbolsmodeon) {
       <ul class="keys">
-        <li class="key-btn" id="grey" (click)="handleKeyPress('💀')">💀</li>
+        <li class="key-btn lg-hide" id="grey" (click)="handleKeyPress('`')">💀</li>
         <li class="key-btn" (click)="handleKeyPress('1')">1</li>
         <li class="key-btn" (click)="handleKeyPress('2')">2</li>
         <li class="key-btn" (click)="handleKeyPress('3')">3</li>
@@ -28,69 +24,146 @@
         <li class="key-btn" (click)="handleKeyPress('7')">7</li>
         <li class="key-btn" (click)="handleKeyPress('8')">8</li>
         <li class="key-btn" (click)="handleKeyPress('0')">0</li>
-        <li class="key-btn" (click)="handleKeyPress('_')">_</li>
-        <li class="key-btn" (click)="handleKeyPress('=')">=</li>
-        <li class="key-btn" id="yellow" (click)="handleKeyPress('🎨')">🎨</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('_')">_</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('=')">=</li>
+        <li class="key-btn lg-hide" id="yellow" (click)="backspacefunc()">🎨</li>
       </ul>
+      }
+      @if (symbolsmodeon) {
       <ul class="keys">
-        <li class="key-btn" id="red">🌵</li>
-        <li class="key-btn" (click)="handleKeyPress('Q')">Q</li>
-        <li class="key-btn" (click)="handleKeyPress('W')">W</li>
-        <li class="key-btn" (click)="handleKeyPress('E')">E</li>
-        <li class="key-btn" (click)="handleKeyPress('R')">R</li>
-        <li class="key-btn" (click)="handleKeyPress('T')">T</li>
-        <li class="key-btn" (click)="handleKeyPress('Y')">Y</li>
-        <li class="key-btn" (click)="handleKeyPress('U')">U</li>
-        <li class="key-btn" (click)="handleKeyPress('I')">I</li>
-        <li class="key-btn" (click)="handleKeyPress('O')">O</li>
-        <li class="key-btn" (click)="handleKeyPress('P')">P</li>
+        <li class="key-btn" (click)="handleKeyPress('~')">~</li>
+        <li class="key-btn" (click)="handleKeyPress('`')">`</li>
+        <li class="key-btn" (click)="handleKeyPress('|')">|</li>
+        <li class="key-btn" (click)="handleKeyPress('•')">•</li>
+        <li class="key-btn" (click)="handleKeyPress('√')">√</li>
+        <li class="key-btn" (click)="handleKeyPress('ℵ')">ℵ</li>
+        <li class="key-btn" (click)="handleKeyPress('÷')">÷</li>
+        <li class="key-btn" (click)="handleKeyPress('×')">×</li>
+        <li class="key-btn" (click)="handleKeyPress('§')">§</li>
+        <li class="key-btn" (click)="handleKeyPress('∆')">∆</li>
+
+      </ul>
+      }
+      @if (!othermodeon) {
+      <ul class="keys">
+        <li class="key-btn lg-hide" id="red" (click)="handleSpecialKeyPress('Tab')">🌵</li>
+        <li class="key-btn" (click)="handleKeyPress('q')">Q</li>
+        <li class="key-btn" (click)="handleKeyPress('w')">W</li>
+        <li class="key-btn" (click)="handleKeyPress('e')">E</li>
+        <li class="key-btn" (click)="handleKeyPress('r')">R</li>
+        <li class="key-btn" (click)="handleKeyPress('t')">T</li>
+        <li class="key-btn" (click)="handleKeyPress('y')">Y</li>
+        <li class="key-btn" (click)="handleKeyPress('u')">U</li>
+        <li class="key-btn" (click)="handleKeyPress('i')">I</li>
+        <li class="key-btn" (click)="handleKeyPress('o')">O</li>
+        <li class="key-btn" (click)="handleKeyPress('p')">P</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('[')">[</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress(']')">]</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('\\')">\</li>
+      </ul>
+      <ul class="keys md:mx-0 mx-[10px]">
+        <li class="key-btn lg-hide" id="blue" (click)="handleSpecialKeyPress('CapsLock')">🧢</li>
+        <li class="key-btn" (click)="handleKeyPress('a')">A</li>
+        <li class="key-btn" (click)="handleKeyPress('s')">S</li>
+        <li class="key-btn" (click)="handleKeyPress('d')">D</li>
+        <li class="key-btn" (click)="handleKeyPress('f')">F</li>
+        <li class="key-btn" (click)="handleKeyPress('g')">G</li>
+        <li class="key-btn" (click)="handleKeyPress('h')">H</li>
+        <li class="key-btn" (click)="handleKeyPress('j')">J</li>
+        <li class="key-btn" (click)="handleKeyPress('k')">K</li>
+        <li class="key-btn" (click)="handleKeyPress('l')">L</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress(';')">;</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('')">""</li>
+        <li class="key-btn lg-hide" id="green" (click)="handleSpecialKeyPress('Enter')">🔫</li>
+      </ul>}
+      @if (othermodeon && !symbolsmodeon) {
+      <ul class="keys my-[15px]">
+        <li class="key-btn" (click)="handleKeyPress('@')">&#64;</li>
+        <li class="key-btn" (click)="handleKeyPress('#')">#</li>
+        <li class="key-btn" (click)="handleKeyPress('$')">$</li>
+        <li class="key-btn" (click)="handleKeyPress('_')">_</li>
+        <li class="key-btn" (click)="handleKeyPress('&')">&</li>
+        <li class="key-btn" (click)="handleKeyPress('-')">-</li>
+        <li class="key-btn" (click)="handleKeyPress('+')">+</li>
+        <li class="key-btn" (click)="handleKeyPress('(')">(</li>
+        <li class="key-btn" (click)="handleKeyPress(')')">)</li>
+        <li class="key-btn" (click)="handleKeyPress('/')">/</li>
+      </ul>
+      }
+      @if (symbolsmodeon) {
+      <ul class="keys my-[15px]">
+        <li class="key-btn" (click)="handleKeyPress('£')">£</li>
+        <li class="key-btn" (click)="handleKeyPress('¢')">¢</li>
+        <li class="key-btn" (click)="handleKeyPress('$')">$</li>
+        <li class="key-btn" (click)="handleKeyPress('_')">_</li>
+        <li class="key-btn" (click)="handleKeyPress('&')">s</li>
+        <li class="key-btn" (click)="handleKeyPress('€')">€</li>
+        <li class="key-btn" (click)="handleKeyPress('¥')">¥</li>
+        <li class="key-btn" (click)="handleKeyPress('^')">^</li>
+        <li class="key-btn" (click)="handleKeyPress('°')">°</li>
+        <li class="key-btn" (click)="handleKeyPress('=')">=</li>
+        <li class="key-btn" (click)="handleKeyPress('{')">&#123;</li>
+        <li class="key-btn" (click)="handleKeyPress('}')">&#125;</li>
+        <li class="key-btn" (click)="handleKeyPress('/')">/</li>
+      </ul>
+      }
+      <ul class="keys">
+        <li class="key-btn lg-hide" id="rebeca" (click)="handleSpecialKeyPress('Shift')">🔥</li>
+        @if (!othermodeon) {
+        <li class="key-btn mobile-btn" id="blue" (click)="handleSpecialKeyPress('CapsLock')">🧢</li>
+        }
+        @if (othermodeon) {
+        <li class="key-btn mobile-btn" id="blue" (click)="symbolsmode()">+\<< /li>
+            }
+            @if (!othermodeon) {
+        <li class="key-btn" (click)="handleKeyPress('z')">Z</li>
+        <li class="key-btn" (click)="handleKeyPress('x')">X</li>
+        <li class="key-btn" (click)="handleKeyPress('c')">C</li>
+        <li class="key-btn" (click)="handleKeyPress('v')">V</li>
+        <li class="key-btn" (click)="handleKeyPress('b')">B</li>
+        <li class="key-btn" (click)="handleKeyPress('n')">N</li>
+        <li class="key-btn" (click)="handleKeyPress('m')">M</li>
+        }
+        @if (othermodeon && !symbolsmodeon) {
+        <li class="key-btn" (click)="handleKeyPress('*')">*</li>
+        <li class="key-btn" (click)="handleKeyPress('&quot;')">"</li>
+        <li class="key-btn" (click)="handleKeyPress('\'')">'</li>
+        <li class="key-btn" (click)="handleKeyPress(':')">:</li>
+        <li class="key-btn" (click)="handleKeyPress(';')">;</li>
+        <li class="key-btn" (click)="handleKeyPress('!')">!</li>
+        <li class="key-btn" (click)="handleKeyPress('?')">?</li>
+        }
+        @if (symbolsmodeon) {
+        <li class="key-btn" (click)="handleKeyPress('%')">%</li>
+        <li class="key-btn" (click)="handleKeyPress('©')">©</li>
+        <li class="key-btn" (click)="handleKeyPress('®')">®</li>
+        <li class="key-btn" (click)="handleKeyPress('™')">™</li>
+        <li class="key-btn" (click)="handleKeyPress('✓')">✓</li>
         <li class="key-btn" (click)="handleKeyPress('[')">[</li>
         <li class="key-btn" (click)="handleKeyPress(']')">]</li>
-        <li class="key-btn" (click)="handleKeyPress('\\')">\</li>
+        }
+        <li class="key-btn lg-hide" (click)="handleKeyPress(',')">,</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('.')">.</li>
+        <li class="key-btn lg-hide" (click)="handleKeyPress('?')">?</li>
+        <li class="key-btn lg-hide" id="up" (click)="handleSpecialKeyPress('Shift')">🧬</li>
+        <li class="key-btn mobile-btn" id="yellow" (click)="backspacefunc()">🎨</li>
       </ul>
       <ul class="keys">
-        <li class="key-btn" id="blue" (click)="handleKeyPress('')">🧢</li>
-        <li class="key-btn" (click)="handleKeyPress('A')">A</li>
-        <li class="key-btn" (click)="handleKeyPress('S')">S</li>
-        <li class="key-btn" (click)="handleKeyPress('D')">D</li>
-        <li class="key-btn" (click)="handleKeyPress('F')">F</li>
-        <li class="key-btn" (click)="handleKeyPress('G')">G</li>
-        <li class="key-btn" (click)="handleKeyPress('H')">H</li>
-        <li class="key-btn" (click)="handleKeyPress('J')">J</li>
-        <li class="key-btn" (click)="handleKeyPress('K')">K</li>
-        <li class="key-btn" (click)="handleKeyPress('L')">L</li>
-        <li class="key-btn" (click)="handleKeyPress(';')">;</li>
-        <li class="key-btn" (click)="handleKeyPress('')">""</li>
-        <li class="key-btn" id="green" (click)="handleKeyPress('')">🔫</li>
-      </ul>
-      <ul class="keys">
-        <li class="key-btn" id="rebeca">🔥</li>
-        <li class="key-btn" (click)="handleKeyPress('Z')">Z</li>
-        <li class="key-btn" (click)="handleKeyPress('X')">X</li>
-        <li class="key-btn" (click)="handleKeyPress('C')">C</li>
-        <li class="key-btn" (click)="handleKeyPress('V')">V</li>
-        <li class="key-btn" (click)="handleKeyPress('B')">B</li>
-        <li class="key-btn" (click)="handleKeyPress('N')">N</li>
-        <li class="key-btn" (click)="handleKeyPress('M')">M</li>
-        <li class="key-btn" (click)="handleKeyPress(',')">,</li>
-        <li class="key-btn" (click)="handleKeyPress('.')">.</li>
-        <li class="key-btn" (click)="handleKeyPress('?')">?</li>
-        <li class="key-btn" id="up" (click)="handleKeyPress('SHIFT')">🧬</li>
-      </ul>
-      <ul class="keys">
-        <li class="key-btn" id="one" (click)="handleKeyPress('ctrl')">ctrl</li>
-        <li class="key-btn" id="one" (click)="handleKeyPress('alt')">alt</li>
-        <li class="key-btn" id="one" (click)="handleKeyPress('cmd')">cmd</li>
+        <li class="key-btn mobile-btn" id="one" (click)="othermode()">123</li>
+        <li class="key-btn mobile-btn" (click)="handleKeyPress('.')">.</li>
+        <li class="key-btn lg-hide" id="one" (click)="handleKeyPress('ctrl')">ctrl</li>
+        <li class="key-btn lg-hide" id="one" (click)="handleKeyPress('alt')">alt</li>
+        <li class="key-btn lg-hide" id="one" (click)="handleKeyPress('cmd')">cmd</li>
         <li class="key-btn" id="two" (click)="handleKeyPress(' ')"></li>
-        <li class="key-btn" id="one" (click)="handleKeyPress('cmd')">cmd</li>
-        <li class="key-btn" id="one" (click)="handleKeyPress('alt')">alt</li>
+        <li class="key-btn lg-hide" id="one" (click)="handleKeyPress('cmd')">cmd</li>
+        <li class="key-btn lg-hide" id="one" (click)="handleKeyPress('alt')">alt</li>
+        <li class="key-btn mobile-btn" (click)="handleKeyPress(',')">,</li>
+        <li class="key-btn mobile-btn" id="green" (click)="handleSpecialKeyPress('Enter')">🔫</li>
       </ul>
     </div>
   </div>
 
-  <div
-    class="bg-zinc-300 shadow-md rounded-lg p-4 md:p-6 flex flex-col text-gray-700 md:w-[30%] w-full mx-auto"
-  >
+  <div class="bg-zinc-300 shadow-md rounded-lg p-4 md:p-6 flex flex-col text-gray-700 md:w-[30%] w-full mx-auto">
     <!-- Heading -->
     <p class="text-lg md:text-xl font-semibold md:mb-2 text-center mb-1">
       Statistics
