@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit, OnDestroy {
   typedText: string = ''; // User-typed text
-  originalText: string = 'Type the text shown here correctly.'; // Reference text
+  originalText: string = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque consectetur nemo saepe impedit ea'; // Reference text
   textOptions: any[] = [
     'Angular is awesome!',
     'Keep typing!',
@@ -52,7 +52,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onKeyPress(event: KeyboardEvent): void {
     const regex = /^[a-zA-Z0-9\s]$/; // Allow only alphanumeric and space
-    
   }
 
   handleKeyPress(key: string): void {
@@ -130,27 +129,16 @@ export class AppComponent implements OnInit, OnDestroy {
     this.correctWords = 0; // Reset correct words
     this.incorrectLetters = 0; // Reset incorrect letters
 
-    let currentWordIndex = 0;
-    let currentWordCorrect = 0; // Correctly typed characters in the current word
     let correctChars = 0; // Count of correct characters for accuracy
 
     // Iterate through typed characters
-    typed.forEach((char, index) => {
-      const currentChar = original[index]; // Corresponding character in the original text
+    typed.forEach((typedWord, wordIndex) => {
+      const originalWord = original[wordIndex]; // Corresponding character in the original text
 
-      if (char === currentChar) {
-        correctChars++;
-        currentWordCorrect++;
+      if (typedWord === originalWord) {
+        this.correctWords++; // Increment correctChars by 1 for each correct character
       } else {
         this.incorrectLetters++; // Count incorrect characters
-      }
-
-      // Check if a word is completed (space or last character)
-      if (char === ' ' || index === typed.length - 1) {
-        if (currentWordCorrect > 0) {
-          this.correctWords++; // Increment correct words count if word is correctly typed
-        }
-        currentWordCorrect = 0; // Reset for next word
       }
     });
 
@@ -182,12 +170,14 @@ export class AppComponent implements OnInit, OnDestroy {
   backspacefunc(): void {
     this.typedText = this.typedText.slice(0, -1);
   }
-  othermodeon=false
-  othermode(){
-this.othermodeon=!this.othermodeon
+
+  othermodeon = false;
+  othermode() {
+    this.othermodeon = !this.othermodeon;
   }
-  symbolsmodeon=false
-  symbolsmode(){
-this.symbolsmodeon=!this.symbolsmodeon
+
+  symbolsmodeon = false;
+  symbolsmode() {
+    this.symbolsmodeon = !this.symbolsmodeon;
   }
 }

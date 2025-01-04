@@ -21,7 +21,7 @@ body {
   transition: 0.2s;
   height: 2.5em;
   font-size: 1em;
-  width: 4em;
+  width: 50%;
   margin: 0.3em;
   background-color: #f2f2f2;
   border-radius: 0.5em;
@@ -32,37 +32,37 @@ body {
 }
 #red {
   background-color: #a3f7bf;
-  width: 5em;
+  width: 70%;
 }
 
 #blue {
   background-color: #9aebed;
-  width: 6em;
+  width: 80%;
 }
 
 #rebeca {
   background-color: #fecd1a;
-  width: 8em;
+  width: 90%;
 }
 
 #green {
   background-color: #fa86be;
-  width: 6em;
+  width: 80%;
 }
 
 #up {
   background-color: #8594e4;
-  width: 8em;
+  width: 90%;
 }
 
 #yellow {
   background-color: #fffcab;
-  width: 5em;
+  width: 70%;
 }
 
 #grey {
   background-color: #fd3a69;
-  width: 3.3em;
+  width: 50%;
 }
 
 #one {
@@ -70,9 +70,9 @@ body {
   width: 5em;
 }
 
-#two {
-  width: 24.5em;
-}
+/* #two {
+  width: 100%;
+} */
 
 .key-btn {
     box-shadow: 0px -6px 10px rgba(255, 255, 255, 1),
