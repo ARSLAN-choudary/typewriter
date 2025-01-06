@@ -122,6 +122,9 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!this.timerStarted) {
       this.startTimer(); // Start timer on first keypress
     }
+    if (!this.timerStarted) {
+      this.startTimer(); // Start timer on first keypress
+    }
 
     const typed = this.typedText.split(''); // Split typed text into characters
     const original = this.originalText.split(''); // Split original text into characters
@@ -141,6 +144,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.incorrectLetters++; // Count incorrect characters
       }
     });
+    
 
     // Accuracy Calculation: (Correct characters / Total typed characters) * 100
     this.accuracy = typed.length
@@ -152,6 +156,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const elapsedMinutes = this.timer / 60;
     this.wpm = elapsedMinutes > 0 ? Math.floor(wordsTyped / elapsedMinutes) : 0;
   }
+  
 
   startTimer(): void {
     this.timerStarted = true;
